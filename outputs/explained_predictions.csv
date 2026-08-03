@@ -1,0 +1,201 @@
+lot_id,tool_id,chamber_temp,chamber_pressure,etch_time,film_thickness,defect_count,final_yield,risk_label,predicted_risk_label,risk_score,warning_level,risk_score_percent,root_cause_summary,recommended_action
+LOT_001,TOOL_C,85.1,2.05,54.92,99.54,15,83.82,1,1,0.83,HIGH RISK,83.0,High defect count,Review inspection results and defect source
+LOT_002,TOOL_B,78.36,1.87,54.54,106.51,5,93.77,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_003,TOOL_A,93.88,2.16,60.45,89.55,31,71.19,1,1,0.97,HIGH RISK,97.0,High defect count; Chamber temperature too high; Film thickness too low,Review inspection results and defect source; Check chamber temperature control; Check deposition uniformity and process settings
+LOT_004,TOOL_B,87.77,2.06,60.85,102.56,14,84.67,1,0,0.43,MEDIUM RISK,43.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_005,TOOL_C,86.66,2.42,60.81,106.09,12,84.14,1,1,0.73,HIGH RISK,73.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_006,TOOL_D,82.77,2.89,64.01,108.59,16,80.6,1,1,0.79,HIGH RISK,79.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_007,TOOL_B,86.6,2.33,53.86,104.78,15,87.51,0,1,0.59,MEDIUM RISK,59.0,High defect count,Review inspection results and defect source
+LOT_008,TOOL_C,84.85,2.54,60.65,103.6,5,93.59,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_009,TOOL_C,81.89,2.07,67.78,98.07,20,77.09,1,1,0.99,HIGH RISK,99.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_010,TOOL_C,79.97,2.14,55.71,94.67,11,85.9,0,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_011,TOOL_B,84.75,2.23,59.22,96.27,8,88.57,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_012,TOOL_D,84.64,2.75,62.35,94.22,18,82.65,1,1,0.98,HIGH RISK,98.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_013,TOOL_B,85.39,2.37,62.48,92.24,9,86.41,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_014,TOOL_D,87.59,2.33,55.27,108.84,3,92.21,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_015,TOOL_C,77.63,2.26,62.56,100.97,8,86.83,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_016,TOOL_B,85.61,2.15,64.23,95.58,15,83.2,1,1,0.9,HIGH RISK,90.0,High defect count,Review inspection results and defect source
+LOT_017,TOOL_D,82.67,2.55,59.8,110.42,12,88.1,0,0,0.11,LOW RISK,11.0,Film thickness too high,Check deposition rate and recipe settings
+LOT_018,TOOL_C,89.48,1.99,55.3,99.1,13,86.31,0,0,0.15,LOW RISK,15.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_019,TOOL_C,79.56,1.92,57.92,101.16,5,89.89,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_020,TOOL_D,83.56,2.51,58.44,96.3,6,92.79,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_021,TOOL_A,84.17,2.11,62.38,99.87,4,92.2,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_022,TOOL_B,84.61,2.1,49.33,100.96,12,86.66,0,0,0.06,LOW RISK,6.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_023,TOOL_A,82.14,2.15,69.5,95.21,7,91.41,0,0,0.42,MEDIUM RISK,42.0,Etch time too long,Review etch recipe and process duration
+LOT_024,TOOL_C,87.4,2.06,52.58,99.4,5,91.86,0,0,0.03,LOW RISK,3.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_025,TOOL_B,89.45,2.4,61.67,91.58,11,86.71,0,0,0.09,LOW RISK,9.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_026,TOOL_C,79.41,2.53,57.79,92.91,5,92.22,0,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_027,TOOL_B,87.38,2.5,62.2,111.66,17,83.15,1,1,0.95,HIGH RISK,95.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_028,TOOL_C,87.65,2.27,60.4,112.5,19,82.01,1,1,0.97,HIGH RISK,97.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_029,TOOL_C,81.28,2.18,61.05,96.38,10,87.65,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_030,TOOL_C,84.12,2.25,59.71,96.65,3,93.19,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_031,TOOL_B,90.65,2.13,63.13,95.62,20,77.62,1,1,0.96,HIGH RISK,96.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_032,TOOL_C,79.4,1.87,59.23,99.86,15,84.73,1,1,0.93,HIGH RISK,93.0,High defect count,Review inspection results and defect source
+LOT_033,TOOL_B,80.6,1.81,61.08,97.68,13,87.47,0,1,0.61,MEDIUM RISK,61.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_034,TOOL_D,83.48,2.17,59.52,99.17,7,92.7,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_035,TOOL_D,90.76,1.99,54.81,96.97,23,75.81,1,1,0.94,HIGH RISK,94.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_036,TOOL_B,94.96,2.4,58.45,93.1,18,83.6,1,1,0.9,HIGH RISK,90.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_037,TOOL_D,92.87,1.84,59.05,102.0,19,80.28,1,1,1.0,HIGH RISK,100.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_038,TOOL_D,82.28,2.51,54.11,110.38,17,83.69,1,1,0.98,HIGH RISK,98.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_039,TOOL_B,89.59,1.86,59.29,107.45,8,90.95,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_040,TOOL_B,85.23,1.98,59.78,104.75,10,89.47,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_041,TOOL_D,85.82,2.32,56.49,96.81,11,85.42,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_042,TOOL_A,89.17,2.41,50.91,93.94,8,84.33,1,1,0.68,MEDIUM RISK,68.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_043,TOOL_D,89.43,2.57,66.64,104.73,22,77.29,1,1,0.97,HIGH RISK,97.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_044,TOOL_C,83.88,1.86,55.91,102.51,3,91.1,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_045,TOOL_B,82.87,2.56,57.58,107.37,11,87.64,0,0,0.08,LOW RISK,8.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_046,TOOL_C,83.96,1.94,59.78,108.44,6,92.01,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_047,TOOL_C,87.55,2.35,51.47,105.2,12,84.08,1,1,0.69,MEDIUM RISK,69.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_048,TOOL_C,88.38,2.14,65.22,110.01,28,76.63,1,1,0.97,HIGH RISK,97.0,High defect count; Etch time too long; Film thickness too high,Review inspection results and defect source; Review etch recipe and process duration; Check deposition rate and recipe settings
+LOT_049,TOOL_D,76.91,2.52,59.52,114.84,29,73.17,1,1,0.97,HIGH RISK,97.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_050,TOOL_A,82.33,2.26,63.56,103.53,4,92.99,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_051,TOOL_D,90.24,2.29,65.85,95.73,27,69.93,1,1,0.98,HIGH RISK,98.0,High defect count; Chamber temperature too high; Etch time too long,Review inspection results and defect source; Check chamber temperature control; Review etch recipe and process duration
+LOT_052,TOOL_B,81.19,2.24,63.44,101.1,10,88.12,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_053,TOOL_B,88.46,2.44,59.58,102.88,15,86.25,0,0,0.25,LOW RISK,25.0,High defect count,Review inspection results and defect source
+LOT_054,TOOL_A,81.84,2.1,55.15,95.77,8,93.06,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_055,TOOL_C,82.13,2.63,62.24,109.37,19,83.46,1,1,0.95,HIGH RISK,95.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_056,TOOL_C,86.59,2.16,62.6,98.74,4,92.82,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_057,TOOL_A,88.48,1.95,58.59,94.84,10,89.67,0,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_058,TOOL_D,85.22,2.95,60.47,102.24,13,84.46,1,1,0.91,HIGH RISK,91.0,Chamber pressure too high,Inspect pressure control and vacuum system
+LOT_059,TOOL_C,82.84,2.41,54.03,98.1,5,89.64,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_060,TOOL_C,87.87,2.15,56.15,99.89,5,91.46,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_061,TOOL_D,86.85,2.4,53.65,96.93,3,92.6,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_062,TOOL_B,75.73,2.18,60.34,89.5,19,80.0,1,1,0.91,HIGH RISK,91.0,High defect count; Film thickness too low,Review inspection results and defect source; Check deposition uniformity and process settings
+LOT_063,TOOL_C,83.44,2.54,53.29,96.89,8,89.59,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_064,TOOL_C,81.37,2.15,66.94,98.66,24,75.21,1,1,0.94,HIGH RISK,94.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_065,TOOL_C,88.27,2.45,60.17,101.39,3,95.57,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_066,TOOL_D,81.38,2.01,55.62,102.06,8,92.94,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_067,TOOL_B,79.62,2.84,56.96,97.73,18,80.84,1,1,0.98,HIGH RISK,98.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_068,TOOL_A,84.36,2.4,58.33,102.6,7,90.47,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_069,TOOL_D,85.69,2.26,58.64,99.41,5,94.56,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_070,TOOL_D,91.23,2.35,55.52,100.87,12,86.99,0,0,0.09,LOW RISK,9.0,Chamber temperature too high,Check chamber temperature control
+LOT_071,TOOL_D,80.18,1.78,63.53,90.27,14,82.93,1,1,0.8,HIGH RISK,80.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_072,TOOL_A,82.99,2.62,54.8,109.6,20,79.76,1,1,1.0,HIGH RISK,100.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_073,TOOL_C,90.33,2.12,57.31,96.47,8,92.91,0,0,0.0,LOW RISK,0.0,Chamber temperature too high,Check chamber temperature control
+LOT_074,TOOL_D,90.28,2.27,65.09,103.71,21,81.77,1,1,0.98,HIGH RISK,98.0,High defect count; Chamber temperature too high; Etch time too long,Review inspection results and defect source; Check chamber temperature control; Review etch recipe and process duration
+LOT_075,TOOL_B,76.5,2.02,57.7,96.16,11,88.7,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_076,TOOL_C,85.16,2.37,59.68,103.57,5,91.89,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_077,TOOL_D,87.0,2.13,56.85,98.19,15,82.92,1,1,0.86,HIGH RISK,86.0,High defect count,Review inspection results and defect source
+LOT_078,TOOL_D,85.94,2.08,55.16,97.48,10,86.61,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_079,TOOL_B,83.5,2.09,64.59,101.85,11,85.48,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_080,TOOL_B,80.07,2.1,62.35,85.28,28,72.33,1,1,0.96,HIGH RISK,96.0,High defect count; Film thickness too low,Review inspection results and defect source; Check deposition uniformity and process settings
+LOT_081,TOOL_A,86.04,2.56,66.89,95.67,9,93.06,0,0,0.19,LOW RISK,19.0,Etch time too long,Review etch recipe and process duration
+LOT_082,TOOL_D,87.39,2.56,49.34,93.42,13,84.96,1,1,0.79,HIGH RISK,79.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_083,TOOL_C,89.52,2.04,60.84,116.13,21,81.72,1,1,0.99,HIGH RISK,99.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_084,TOOL_D,90.55,2.1,56.54,103.06,29,73.69,1,1,0.92,HIGH RISK,92.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_085,TOOL_B,80.45,2.48,62.69,105.39,11,84.92,1,1,0.67,MEDIUM RISK,67.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_086,TOOL_A,84.79,2.52,57.39,95.83,12,87.07,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_087,TOOL_B,81.13,2.16,66.13,101.89,13,86.36,0,0,0.26,LOW RISK,26.0,Etch time too long,Review etch recipe and process duration
+LOT_088,TOOL_B,89.67,2.55,58.97,95.92,13,86.24,0,0,0.48,MEDIUM RISK,48.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_089,TOOL_B,83.62,2.2,59.72,97.36,5,91.19,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_090,TOOL_B,86.35,2.29,56.36,90.27,14,87.41,0,0,0.2,LOW RISK,20.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_091,TOOL_B,88.73,1.91,60.21,96.8,14,86.41,0,0,0.18,LOW RISK,18.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_092,TOOL_B,84.23,2.09,59.74,116.73,19,80.44,1,1,0.94,HIGH RISK,94.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_093,TOOL_B,88.6,2.15,60.11,99.75,6,90.26,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_094,TOOL_C,87.33,2.15,62.96,107.02,15,85.45,0,0,0.26,LOW RISK,26.0,High defect count,Review inspection results and defect source
+LOT_095,TOOL_A,87.05,2.05,71.35,97.58,15,83.8,1,1,0.96,HIGH RISK,96.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_096,TOOL_D,82.4,2.3,60.24,92.27,12,87.47,0,0,0.03,LOW RISK,3.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_097,TOOL_B,86.52,1.84,57.91,107.93,14,85.65,0,0,0.21,LOW RISK,21.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_098,TOOL_C,75.42,2.1,60.79,93.09,15,85.17,0,0,0.33,LOW RISK,33.0,High defect count,Review inspection results and defect source
+LOT_099,TOOL_A,82.52,2.42,63.1,104.49,6,93.13,0,0,0.06,LOW RISK,6.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_100,TOOL_B,79.29,2.26,61.45,97.53,11,88.08,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_101,TOOL_A,79.59,2.47,63.5,96.34,11,85.69,0,0,0.03,LOW RISK,3.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_102,TOOL_D,83.94,1.97,55.91,96.31,5,97.76,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_103,TOOL_A,88.7,1.96,61.68,103.89,4,92.1,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_104,TOOL_D,76.99,2.07,60.67,100.11,15,84.19,1,1,0.57,MEDIUM RISK,57.0,High defect count,Review inspection results and defect source
+LOT_105,TOOL_C,89.37,2.14,57.46,98.95,4,96.71,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_106,TOOL_A,83.56,1.73,65.3,96.75,11,86.83,0,0,0.12,LOW RISK,12.0,Etch time too long,Review etch recipe and process duration
+LOT_107,TOOL_C,88.22,1.62,58.12,100.15,13,83.43,1,1,0.79,HIGH RISK,79.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_108,TOOL_D,89.06,2.41,54.62,96.61,4,95.1,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_109,TOOL_D,88.33,2.11,54.31,107.38,15,83.05,1,1,0.78,HIGH RISK,78.0,High defect count,Review inspection results and defect source
+LOT_110,TOOL_D,89.87,2.58,54.87,94.19,15,84.97,1,1,0.96,HIGH RISK,96.0,High defect count,Review inspection results and defect source
+LOT_111,TOOL_B,85.34,2.14,56.95,107.33,11,87.04,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_112,TOOL_A,85.62,2.47,65.28,104.01,12,87.76,0,0,0.09,LOW RISK,9.0,Etch time too long,Review etch recipe and process duration
+LOT_113,TOOL_C,87.27,2.12,69.71,106.42,16,82.26,1,1,0.86,HIGH RISK,86.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_114,TOOL_B,86.48,2.69,57.86,96.82,21,77.31,1,1,0.96,HIGH RISK,96.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_115,TOOL_D,85.87,2.42,56.97,100.9,4,93.24,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_116,TOOL_C,86.7,2.36,60.02,104.77,8,93.8,0,0,0.06,LOW RISK,6.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_117,TOOL_A,82.94,1.91,56.84,102.31,8,85.75,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_118,TOOL_C,87.94,2.16,53.89,104.25,6,96.61,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_119,TOOL_D,86.16,1.93,58.5,89.92,20,81.36,1,1,1.0,HIGH RISK,100.0,High defect count; Film thickness too low,Review inspection results and defect source; Check deposition uniformity and process settings
+LOT_120,TOOL_C,88.02,2.5,65.18,97.4,18,79.67,1,1,0.99,HIGH RISK,99.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_121,TOOL_B,86.95,2.19,54.05,103.32,11,87.94,0,0,0.03,LOW RISK,3.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_122,TOOL_A,86.9,2.39,65.15,100.2,22,80.68,1,1,0.94,HIGH RISK,94.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_123,TOOL_D,89.55,1.96,59.73,100.68,12,88.56,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_124,TOOL_C,86.56,2.0,60.53,101.88,13,83.56,1,0,0.44,MEDIUM RISK,44.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_125,TOOL_D,81.3,1.93,57.25,101.26,7,93.09,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_126,TOOL_C,88.24,2.23,56.54,111.24,18,82.43,1,1,0.99,HIGH RISK,99.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_127,TOOL_D,78.15,2.52,63.9,100.42,9,90.81,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_128,TOOL_C,91.5,2.26,61.96,102.34,20,79.28,1,1,0.95,HIGH RISK,95.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_129,TOOL_A,84.09,2.57,57.35,101.37,10,86.47,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_130,TOOL_B,85.12,2.28,47.74,96.54,10,86.59,0,0,0.06,LOW RISK,6.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_131,TOOL_C,81.32,1.98,64.57,101.6,11,85.62,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_132,TOOL_C,84.83,2.45,59.85,103.87,12,89.87,0,0,0.03,LOW RISK,3.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_133,TOOL_B,92.75,2.77,59.78,96.69,23,80.36,1,1,0.99,HIGH RISK,99.0,High defect count; Chamber temperature too high; Chamber pressure too high,Review inspection results and defect source; Check chamber temperature control; Inspect pressure control and vacuum system
+LOT_134,TOOL_B,83.68,2.47,65.54,95.27,15,82.78,1,1,0.93,HIGH RISK,93.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_135,TOOL_C,90.14,1.75,54.52,110.2,20,81.93,1,1,0.97,HIGH RISK,97.0,High defect count; Chamber temperature too high; Film thickness too high,Review inspection results and defect source; Check chamber temperature control; Check deposition rate and recipe settings
+LOT_136,TOOL_A,86.51,2.12,50.98,94.58,15,79.35,1,1,0.96,HIGH RISK,96.0,High defect count,Review inspection results and defect source
+LOT_137,TOOL_B,84.96,2.48,66.18,92.38,21,77.58,1,1,0.96,HIGH RISK,96.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_138,TOOL_D,82.29,2.25,63.36,95.82,5,93.92,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_139,TOOL_B,87.64,2.25,60.29,107.54,9,85.58,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_140,TOOL_D,85.23,2.16,62.17,102.41,13,84.12,1,1,0.76,HIGH RISK,76.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_141,TOOL_A,88.52,2.0,63.38,106.76,5,91.9,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_142,TOOL_A,82.77,2.05,58.94,103.84,5,92.5,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_143,TOOL_B,77.47,2.2,54.18,101.37,6,91.27,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_144,TOOL_B,86.73,2.73,58.52,105.42,28,72.55,1,1,1.0,HIGH RISK,100.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_145,TOOL_C,87.79,2.03,62.59,94.84,12,87.78,0,0,0.13,LOW RISK,13.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_146,TOOL_B,86.14,2.44,59.67,115.5,12,87.38,0,0,0.13,LOW RISK,13.0,Film thickness too high,Check deposition rate and recipe settings
+LOT_147,TOOL_B,84.12,2.1,59.4,92.97,5,91.66,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_148,TOOL_D,76.57,1.84,61.36,104.58,5,94.79,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_149,TOOL_B,83.65,1.88,64.36,101.14,5,93.33,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_150,TOOL_C,74.75,2.28,58.12,97.5,5,93.57,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_151,TOOL_C,80.73,1.96,62.23,94.99,8,89.06,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_152,TOOL_D,81.19,2.32,61.61,98.01,13,85.32,0,0,0.17,LOW RISK,17.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_153,TOOL_A,88.51,1.9,65.18,90.18,21,78.47,1,1,0.95,HIGH RISK,95.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_154,TOOL_D,82.55,2.4,61.34,102.37,15,85.26,0,0,0.22,LOW RISK,22.0,High defect count,Review inspection results and defect source
+LOT_155,TOOL_C,80.06,2.24,63.94,100.5,11,85.97,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_156,TOOL_D,79.33,2.47,55.02,103.98,9,89.03,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_157,TOOL_D,89.06,2.01,62.97,91.96,4,89.31,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_158,TOOL_A,76.73,2.04,70.37,95.93,13,83.1,1,1,0.75,HIGH RISK,75.0,Etch time too long,Review etch recipe and process duration
+LOT_159,TOOL_B,84.46,1.87,58.23,111.8,12,87.53,0,0,0.09,LOW RISK,9.0,Film thickness too high,Check deposition rate and recipe settings
+LOT_160,TOOL_C,80.29,2.46,57.07,92.26,7,92.96,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_161,TOOL_C,84.65,2.34,58.93,81.15,14,88.46,0,0,0.19,LOW RISK,19.0,Film thickness too low,Check deposition uniformity and process settings
+LOT_162,TOOL_A,81.82,2.34,58.29,102.89,10,88.34,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_163,TOOL_B,83.88,2.3,62.87,94.75,15,80.21,1,1,0.81,HIGH RISK,81.0,High defect count,Review inspection results and defect source
+LOT_164,TOOL_A,81.97,2.2,66.58,94.48,11,84.79,1,1,0.72,HIGH RISK,72.0,Etch time too long,Review etch recipe and process duration
+LOT_165,TOOL_D,86.33,1.77,55.31,100.88,11,88.59,0,0,0.23,LOW RISK,23.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_166,TOOL_B,88.76,2.17,60.7,99.75,15,85.73,0,0,0.27,LOW RISK,27.0,High defect count,Review inspection results and defect source
+LOT_167,TOOL_D,84.69,2.2,59.86,96.76,10,85.71,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_168,TOOL_C,80.46,2.35,62.49,91.3,7,91.31,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_169,TOOL_A,79.98,2.11,62.28,104.65,3,96.68,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_170,TOOL_A,79.24,2.18,63.21,102.64,3,90.1,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_171,TOOL_A,89.12,2.28,61.04,98.31,10,84.07,1,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_172,TOOL_D,83.32,2.81,54.49,114.87,32,72.05,1,1,1.0,HIGH RISK,100.0,High defect count; Chamber pressure too high; Film thickness too high,Review inspection results and defect source; Inspect pressure control and vacuum system; Check deposition rate and recipe settings
+LOT_173,TOOL_B,78.73,1.97,57.22,107.85,13,86.35,0,0,0.15,LOW RISK,15.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_174,TOOL_A,81.49,2.17,60.83,97.75,10,85.95,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_175,TOOL_A,87.36,1.96,61.03,101.35,7,89.12,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_176,TOOL_A,86.7,1.93,58.31,95.04,15,83.66,1,1,0.95,HIGH RISK,95.0,High defect count,Review inspection results and defect source
+LOT_177,TOOL_B,78.88,2.26,57.76,89.45,14,83.73,1,0,0.35,LOW RISK,35.0,Film thickness too low,Check deposition uniformity and process settings
+LOT_178,TOOL_B,81.75,1.93,52.74,97.93,15,81.28,1,1,0.95,HIGH RISK,95.0,High defect count,Review inspection results and defect source
+LOT_179,TOOL_D,81.86,2.16,58.5,103.78,3,94.97,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_180,TOOL_B,88.45,2.49,63.56,101.09,12,86.35,0,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_181,TOOL_B,80.14,1.77,55.0,92.85,7,87.56,0,0,0.25,LOW RISK,25.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_182,TOOL_D,82.06,2.62,56.59,98.51,23,79.63,1,1,0.98,HIGH RISK,98.0,High defect count; Chamber pressure too high,Review inspection results and defect source; Inspect pressure control and vacuum system
+LOT_183,TOOL_B,86.44,2.17,66.26,93.12,20,78.07,1,1,1.0,HIGH RISK,100.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_184,TOOL_A,84.31,2.38,57.58,111.16,26,77.66,1,1,0.95,HIGH RISK,95.0,High defect count; Film thickness too high,Review inspection results and defect source; Check deposition rate and recipe settings
+LOT_185,TOOL_A,84.11,1.94,62.76,96.43,7,93.05,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_186,TOOL_B,88.05,2.21,62.37,97.73,9,88.13,0,0,0.02,LOW RISK,2.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_187,TOOL_B,98.92,2.37,63.82,107.19,27,74.69,1,1,0.95,HIGH RISK,95.0,High defect count; Chamber temperature too high,Review inspection results and defect source; Check chamber temperature control
+LOT_188,TOOL_D,80.1,2.09,58.06,105.35,6,88.16,0,0,0.05,LOW RISK,5.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_189,TOOL_D,84.6,2.61,58.93,107.29,13,81.15,1,1,0.83,HIGH RISK,83.0,Chamber pressure too high,Inspect pressure control and vacuum system
+LOT_190,TOOL_A,78.45,1.98,66.04,93.75,11,89.93,0,0,0.23,LOW RISK,23.0,Etch time too long,Review etch recipe and process duration
+LOT_191,TOOL_A,78.59,1.83,59.19,99.48,13,84.4,1,1,0.74,HIGH RISK,74.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_192,TOOL_D,86.09,2.12,61.91,95.91,4,93.19,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_193,TOOL_D,88.37,1.87,63.59,104.58,12,87.69,0,0,0.04,LOW RISK,4.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_194,TOOL_C,88.0,2.25,57.48,92.94,5,95.67,0,0,0.0,LOW RISK,0.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_195,TOOL_D,90.68,2.15,58.99,107.62,10,90.72,0,0,0.02,LOW RISK,2.0,Chamber temperature too high,Check chamber temperature control
+LOT_196,TOOL_A,88.47,2.08,60.5,102.31,9,85.95,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_197,TOOL_B,86.03,2.15,61.74,93.42,5,94.95,0,0,0.01,LOW RISK,1.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_198,TOOL_D,80.39,2.23,59.5,106.41,8,87.81,0,0,0.06,LOW RISK,6.0,No single rule-based deviation identified,Review combined process conditions and model risk score
+LOT_199,TOOL_A,82.45,2.16,68.03,98.74,19,84.18,1,1,1.0,HIGH RISK,100.0,High defect count; Etch time too long,Review inspection results and defect source; Review etch recipe and process duration
+LOT_200,TOOL_C,85.58,2.64,59.91,86.39,25,78.06,1,1,1.0,HIGH RISK,100.0,High defect count; Chamber pressure too high; Film thickness too low,Review inspection results and defect source; Inspect pressure control and vacuum system; Check deposition uniformity and process settings
