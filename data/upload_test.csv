@@ -1,0 +1,3 @@
+lot_id,chamber_temp,chamber_pressure,etch_time,film_thickness,defect_count
+TEST_LOW,78.36,1.87,54.54,106.51,5
+TEST_HIGH,92.0,2.75,66.0,112.0,28
