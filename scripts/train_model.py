@@ -33,6 +33,14 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
+# Save unseen test data for later evaluation
+test_data = df.loc[X_test.index].copy()
+
+test_data.to_csv(
+    "data/unseen_test_data.csv",
+    index=False
+)
+
 # 5. Create AI model
 model = RandomForestClassifier(
     n_estimators=100,

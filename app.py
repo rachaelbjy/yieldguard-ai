@@ -2,7 +2,12 @@ import os
 import pandas as pd
 import joblib
 import streamlit as st
-
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    confusion_matrix
+)
 
 # 1. Configure dashboard
 st.set_page_config(
@@ -211,6 +216,34 @@ else:
         "Currently displaying the built-in demo dataset."
     )
 
+# Model performance for labelled data
+if (
+    "risk_label" in df.columns
+    and "predicted_risk_label" in df.columns
+):
+    model_accuracy = accuracy_score(
+        df["risk_label"],
+        df["predicted_risk_label"]
+    )
+
+    model_precision = precision_score(
+        df["risk_label"],
+        df["predicted_risk_label"],
+        zero_division=0
+    )
+
+    model_recall = recall_score(
+        df["risk_label"],
+        df["predicted_risk_label"],
+        zero_division=0
+    )
+
+    cm = confusion_matrix(
+    df["risk_label"],
+    df["predicted_risk_label"]
+    )
+
+    tn, fp, fn, tp = cm.ravel()
 
 # 9. Validate dashboard columns
 required_columns = [
@@ -277,6 +310,50 @@ metric_4.metric(
     f"{average_risk_score:.1f}%"
 )
 
+if (
+    "risk_label" in df.columns
+    and "predicted_risk_label" in df.columns
+):
+    st.subheader("Model Performance")
+
+    performance_1, performance_2, performance_3 = st.columns(3)
+
+    performance_1.metric(
+        "Accuracy",
+        f"{model_accuracy:.1%}"
+    )
+
+    performance_2.metric(
+        "Precision",
+        f"{model_precision:.1%}"
+    )
+
+    performance_3.metric(
+        "Recall",
+        f"{model_recall:.1%}"
+    )
+
+    st.markdown("#### Confusion Matrix")
+
+    confusion_df = pd.DataFrame(
+        [
+            [tn, fp],
+            [fn, tp]
+        ],
+        index=[
+            "Actual Low Risk",
+            "Actual High Risk"
+        ],
+        columns=[
+            "Predicted Low Risk",
+            "Predicted High Risk"
+        ]
+    )
+
+    st.dataframe(
+        confusion_df,
+        width="stretch"
+    )
 
 # 12. Warning-level distribution
 st.subheader("Warning Level Distribution")
