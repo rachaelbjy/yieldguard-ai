@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import joblib
 import streamlit as st
+import shap
+
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -43,6 +45,10 @@ model_package = joblib.load(model_path)
 model = model_package["model"]
 features = model_package["features"]
 
+shap_explainer = shap.TreeExplainer(model)
+
+class_list = list(model.classes_)
+high_risk_position = class_list.index(1)
 
 # 5. Warning-level function
 def get_warning_level(score):
@@ -476,6 +482,84 @@ if "lot_id" in df.columns:
         df["lot_id"].astype(str)
         == selected_lot
     ].iloc[0]
+
+    selected_input = pd.DataFrame(
+    [selected_row[features]]
+    )   
+
+    shap_values = shap_explainer(selected_input)
+
+    if shap_values.values.ndim == 3:
+        high_risk_shap_values = (
+            shap_values.values[
+                0,
+                :,
+                high_risk_position
+            ]   
+        )
+    else:
+        high_risk_shap_values = shap_values.values[0]
+
+    shap_df = pd.DataFrame({
+        "Feature": features,
+        "Value": selected_input.iloc[0].values,
+        "SHAP Contribution": high_risk_shap_values
+    })
+
+    shap_df["Absolute Impact"] = (
+        shap_df["SHAP Contribution"].abs()
+    )
+
+    shap_df = shap_df.sort_values(
+        by="Absolute Impact",
+        ascending=False
+    )
+
+    shap_df["Direction"] = shap_df[
+        "SHAP Contribution"
+    ].apply(
+        lambda value: (
+            "Pushes toward HIGH RISK"
+            if value > 0
+            else "Pushes toward LOW RISK"
+        )
+    )
+
+    top_shap_feature = shap_df.iloc[0]
+
+    st.markdown("#### AI Model Explanation (SHAP)")
+
+    st.dataframe(
+        shap_df[
+            [
+                "Feature",
+                "Value",
+                "SHAP Contribution",
+                "Direction"
+            ]
+        ],
+        width="stretch",
+        hide_index=True
+    )
+
+    shap_chart_data = (
+        shap_df
+        .set_index("Feature")[
+            "SHAP Contribution"
+        ]
+    )
+
+    st.bar_chart(
+        shap_chart_data
+    )
+
+    st.markdown("#### Key AI Driver")
+
+    st.info(
+        f"{top_shap_feature['Feature']} "
+        f"is the strongest contributor for this prediction. "
+        f"{top_shap_feature['Direction']}."
+    )
 
     detail_1, detail_2, detail_3 = st.columns(3)
 
