@@ -2,6 +2,8 @@ import pandas as pd
 import random
 import os
 
+random.seed(42)
+
 # Make sure the data folder exists
 os.makedirs("data", exist_ok=True)
 
