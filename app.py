@@ -245,8 +245,9 @@ if (
     )
 
     cm = confusion_matrix(
-    df["risk_label"],
-    df["predicted_risk_label"]
+        df["risk_label"],
+        df["predicted_risk_label"],
+        labels=[0, 1]
     )
 
     tn, fp, fn, tp = cm.ravel()
