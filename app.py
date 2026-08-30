@@ -19,9 +19,15 @@ st.set_page_config(
 )
 
 st.title("YieldGuard AI")
+
 st.caption(
-    "Explainable wafer-lot yield-risk prediction and "
-    "rule-based process risk analysis"
+    "Predict wafer-lot yield risk, explain AI decision drivers, "
+    "and surface process conditions that may require attention."
+)
+
+st.info(
+    "Upload a wafer-lot CSV from the sidebar to run live predictions, "
+    "or explore the built-in demo dataset."
 )
 
 
@@ -207,6 +213,14 @@ if uploaded_file is not None:
         f"Successfully analysed {len(df)} wafer lots."
     )
 
+    st.sidebar.success(
+        "Live Prediction Mode: analysing uploaded wafer-lot data."
+    )   
+
+    st.sidebar.caption(
+        f"Current file: {uploaded_file.name}"
+    )
+
 else:
 
     # Use existing demo results when no file is uploaded
@@ -218,8 +232,8 @@ else:
 
     df = pd.read_csv(demo_data_path)
 
-    st.sidebar.caption(
-        "Currently displaying the built-in demo dataset."
+    st.sidebar.info(
+        "Demo Mode: displaying the built-in synthetic wafer dataset."
     )
 
 # Model performance for labelled data
@@ -295,7 +309,7 @@ average_risk_score = (
 # 11. Display summary metrics
 st.subheader("Production Risk Overview")
 
-metric_1, metric_2, metric_3, metric_4 = st.columns(4)
+metric_1, metric_2, metric_3, metric_4, metric_5 = st.columns(5)
 
 metric_1.metric(
     "Total Wafer Lots",
@@ -313,9 +327,22 @@ metric_3.metric(
 )
 
 metric_4.metric(
+    "Low Risk",
+    low_risk_count
+)
+
+metric_5.metric(
     "Average Risk Score",
     f"{average_risk_score:.1f}%"
 )
+
+st.caption(
+    "Warning thresholds: HIGH RISK ≥ 70% | "
+    "MEDIUM RISK 40–69.99% | LOW RISK < 40%. "
+    "Binary model labels and dashboard warning levels use different decision thresholds."
+)
+
+st.divider()
 
 if (
     "risk_label" in df.columns
@@ -362,6 +389,13 @@ if (
         width="stretch"
     )
 
+    st.caption(
+        "For meaningful model evaluation, use held-out labelled data "
+        "that was not used during model training."
+    )
+
+    st.divider()
+
 # 12. Warning-level distribution
 st.subheader("Warning Level Distribution")
 
@@ -371,17 +405,44 @@ risk_order = [
     "LOW RISK"
 ]
 
-risk_distribution = (
-    df["warning_level"]
-    .value_counts()
-    .reindex(
-        risk_order,
-        fill_value=0
-    )
+risk_distribution_df = pd.DataFrame({
+    "Warning Level": risk_order,
+    "Count": [
+        int(
+            (
+                df["warning_level"] == level
+            ).sum()
+        )
+        for level in risk_order
+    ]
+})
+
+st.vega_lite_chart(
+    risk_distribution_df,
+    {
+        "mark": {
+            "type": "bar"
+        },
+        "encoding": {
+            "x": {
+                "field": "Warning Level",
+                "type": "nominal",
+                "sort": risk_order,
+                "axis": {
+                    "labelAngle": 0
+                }
+            },
+            "y": {
+                "field": "Count",
+                "type": "quantitative",
+                "title": "Number of Wafer Lots"
+            }
+        }
+    },
+    width="stretch"
 )
 
-st.bar_chart(risk_distribution)
-
+st.divider()
 
 # 13. Sidebar filters
 st.sidebar.header("Filters")
@@ -440,8 +501,20 @@ st.write(
     f"{len(df)} wafer lots"
 )
 
+display_df = filtered_df[
+    display_columns
+].rename(
+    columns={
+        "lot_id": "Lot ID",
+        "risk_score_percent": "Risk Score (%)",
+        "warning_level": "Warning Level",
+        "root_cause_summary": "Possible Risk Factors",
+        "recommended_action": "Recommended Action"
+    }
+)
+
 st.dataframe(
-    filtered_df[display_columns],
+    display_df,
     width="stretch",
     hide_index=True
 )
@@ -459,6 +532,7 @@ st.download_button(
     mime="text/csv"
 )
 
+st.divider()
 
 # 18. Inspect one wafer lot
 st.subheader("Inspect One Wafer Lot")
@@ -484,6 +558,77 @@ if "lot_id" in df.columns:
         == selected_lot
     ].iloc[0]
 
+    detail_1, detail_2, detail_3 = st.columns(3)
+
+    detail_1.metric(
+        "Risk Score",
+        f"{selected_row['risk_score_percent']:.1f}%"
+    )
+
+    detail_2.metric(
+        "Warning Level",
+        selected_row["warning_level"]
+    )
+
+    predicted_label = int(
+        selected_row["predicted_risk_label"]
+    )
+
+    predicted_class_text = (
+        "HIGH RISK (1)"
+        if predicted_label == 1
+        else "LOW RISK (0)"
+    )
+
+    detail_3.metric(
+        "Predicted Class",
+        predicted_class_text
+    )
+
+    st.markdown("#### Process Conditions")
+
+    process_columns = [
+        "chamber_temp",
+        "chamber_pressure",
+        "etch_time",
+        "film_thickness",
+        "defect_count"
+    ]
+
+    available_process_columns = [
+        column
+        for column in process_columns
+        if column in selected_row.index
+    ]
+
+    feature_display_names = {
+        "chamber_temp": "Chamber Temperature",
+        "chamber_pressure": "Chamber Pressure",
+        "etch_time": "Etch Time",
+        "film_thickness": "Film Thickness",
+        "defect_count": "Defect Count"
+    }
+
+    process_details = pd.DataFrame({
+        "Feature": [
+            feature_display_names.get(
+                column,
+                column
+            )
+            for column in available_process_columns
+        ],
+        "Value": [
+            selected_row[column]
+            for column in available_process_columns
+        ]
+    })
+
+    st.dataframe(
+        process_details,
+        width="stretch",
+        hide_index=True
+    )
+
     selected_input = pd.DataFrame(
     [selected_row[features]]
     )   
@@ -507,6 +652,18 @@ if "lot_id" in df.columns:
         "SHAP Contribution": high_risk_shap_values
     })
 
+    shap_df["Feature"] = shap_df["Feature"].replace({
+        "chamber_temp": "Chamber Temperature",
+        "chamber_pressure": "Chamber Pressure",
+        "etch_time": "Etch Time",
+        "film_thickness": "Film Thickness",
+        "defect_count": "Defect Count"
+    })
+
+    shap_df["SHAP Contribution"] = (
+        shap_df["SHAP Contribution"].round(4)
+    )
+
     shap_df["Absolute Impact"] = (
         shap_df["SHAP Contribution"].abs()
     )
@@ -522,7 +679,11 @@ if "lot_id" in df.columns:
         lambda value: (
             "Pushes toward HIGH RISK"
             if value > 0
-            else "Pushes toward LOW RISK"
+            else (
+                "Pushes toward LOW RISK"
+                if value < 0
+                else "Neutral"
+            )
         )
     )
 
@@ -543,75 +704,60 @@ if "lot_id" in df.columns:
         hide_index=True
     )
 
-    shap_chart_data = (
-        shap_df
-        .set_index("Feature")[
+    shap_chart_df = shap_df[
+        [
+            "Feature",
             "SHAP Contribution"
         ]
+    ].copy()
+
+    shap_feature_order = (
+        shap_chart_df["Feature"].tolist()
     )
 
-    st.bar_chart(
-        shap_chart_data
+    st.vega_lite_chart(
+        shap_chart_df,
+        {
+            "mark": {
+                "type": "bar"
+            },
+            "encoding": {
+                "y": {
+                    "field": "Feature",
+                    "type": "nominal",
+                    "sort": shap_feature_order,
+                    "axis": {
+                        "title": None,
+                        "labelLimit": 200
+                    }
+                },
+                "x": {
+                    "field": "SHAP Contribution",
+                    "type": "quantitative",
+                    "title": "SHAP Contribution"
+                },
+                "tooltip": [
+                    {
+                        "field": "Feature",
+                        "type": "nominal"
+                    },
+                    {
+                        "field": "SHAP Contribution",
+                        "type": "quantitative"
+                    }
+                ]
+            }
+        },
+        width="stretch"
     )
 
     st.markdown("#### Key AI Driver")
 
     st.info(
-        f"{top_shap_feature['Feature']} "
-        f"is the strongest contributor for this prediction. "
+        f"{top_shap_feature['Feature']} is the strongest AI driver "
+        f"for this prediction. "
+        f"Current value: {top_shap_feature['Value']}. "
         f"{top_shap_feature['Direction']}."
-    )
-
-    detail_1, detail_2, detail_3 = st.columns(3)
-
-    detail_1.metric(
-        "Risk Score",
-        f"{selected_row['risk_score_percent']:.1f}%"
-    )
-
-    detail_2.metric(
-        "Warning Level",
-        selected_row["warning_level"]
-    )
-
-    if "predicted_risk_label" in selected_row.index:
-        detail_3.metric(
-            "Predicted Label",
-            int(
-                selected_row[
-                    "predicted_risk_label"
-                ]
-            )
-        )
-
-    st.markdown("#### Process Conditions")
-
-    process_columns = [
-        "chamber_temp",
-        "chamber_pressure",
-        "etch_time",
-        "film_thickness",
-        "defect_count"
-    ]
-
-    available_process_columns = [
-        column
-        for column in process_columns
-        if column in selected_row.index
-    ]
-
-    process_details = pd.DataFrame({
-        "Feature": available_process_columns,
-        "Value": [
-            selected_row[column]
-            for column in available_process_columns
-        ]
-    })
-
-    st.dataframe(
-        process_details,
-        width="stretch",
-        hide_index=True
     )
 
     st.markdown("#### Possible Risk Factors")
@@ -638,8 +784,8 @@ else:
 st.divider()
 
 st.caption(
-    "MVP disclaimer: This dashboard currently uses synthetic "
-    "semiconductor-style data and rule-based explanations. "
-    "The identified factors are possible risk indicators, "
-    "not confirmed physical root causes."
+    "MVP disclaimer: This dashboard uses synthetic semiconductor-style "
+    "data. SHAP explains model prediction behaviour, while rule-based "
+    "process indicators and recommended actions are illustrative and "
+    "do not represent confirmed physical root causes."
 )
