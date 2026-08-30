@@ -17,7 +17,7 @@ new_lot = pd.DataFrame([{
     "defect_count": 28
 }])
 
-# 4. Predict normal or high risk
+# 4. Predict low or high risk
 prediction = model.predict(new_lot[features])[0]
 
 # 5. Predict probability for each class
@@ -51,4 +51,4 @@ print("Warning level:", warning_level)
 if prediction == 1:
     print("Meaning: This wafer lot is predicted to be high risk.")
 else:
-    print("Meaning: This wafer lot is predicted to be normal.")
+    print("Meaning: This wafer lot is predicted to be low risk.")

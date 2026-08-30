@@ -9,7 +9,8 @@ from sklearn.metrics import accuracy_score, recall_score, precision_score, confu
 df = pd.read_csv("data/wafer_data.csv")
 
 # 2. Choose input features
-# We do NOT use final_yield because final_yield is the result we only know after testing.
+# Do not use final_yield because risk_label is derived from it.
+# Including it would cause target leakage.
 features = [
     "chamber_temp",
     "chamber_pressure",
@@ -41,7 +42,7 @@ test_data.to_csv(
     index=False
 )
 
-# 5. Create AI model
+# 5. Create Random Forest model
 model = RandomForestClassifier(
     n_estimators=100,
     random_state=42

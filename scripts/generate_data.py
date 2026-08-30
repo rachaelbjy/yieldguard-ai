@@ -10,7 +10,7 @@ os.makedirs("data", exist_ok=True)
 # Store all wafer lot records here
 records = []
 
-# Create 200 fake wafer lots
+# Create 200 synthetic wafer lots
 for i in range(1, 201):
     lot_id = f"LOT_{i:03d}"
 

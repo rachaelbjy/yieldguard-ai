@@ -27,7 +27,7 @@ if missing_columns:
     )
 
 
-# 3. Analyse possible root causes for one wafer lot
+# 3. Analyse possible process risk factors
 def analyse_root_causes(row):
     causes = []
     actions = []
@@ -57,10 +57,12 @@ def analyse_root_causes(row):
         actions.append("Check deposition uniformity and process settings")
 
     if not causes:
-        causes.append("No single rule-based deviation identified")
+        causes.append(
+            "No single rule-based deviation identified"
+        )
         actions.append(
-        "Review combined process conditions and model risk score"
-    )
+            "Review combined process conditions and model risk score"
+        )
 
     return pd.Series({
         "root_cause_summary": "; ".join(causes),
@@ -109,11 +111,11 @@ high_risk_results = results[
     results["warning_level"] == "HIGH RISK"
 ]
 
-print("===== High-Risk Root Cause Analysis =====")
+print("===== High-Risk Process Analysis =====")
 print(high_risk_results[display_columns].head(10).to_string(index=False))
 
 # 10. Display summary
-print("\n===== Root Cause Analysis Summary =====")
+print("\n===== Process Analysis Summary =====")
 print("Total wafer lots:", len(results))
 print("High-risk wafer lots:", len(high_risk_results))
 

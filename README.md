@@ -1,193 +1,193 @@
 # YieldGuard AI
 
-**YieldGuard AI** is an explainable AI decision-support system for semiconductor wafer-lot yield-risk prediction.
+YieldGuard AI is a machine-learning decision-support prototype for predicting wafer-lot yield risk in semiconductor manufacturing.
 
-Developed as an MVP for the **MAIC Nexus Challenge**, it combines machine learning, SHAP explainability, process-risk analysis, and an interactive dashboard to identify potentially high-risk wafer lots and provide interpretable insights for manufacturing decision support.
+It was developed as an MVP for the **MAIC Nexus Challenge**. The project uses a Random Forest model to estimate wafer-lot risk, SHAP to explain individual predictions, and simple rule-based checks to highlight process conditions that may need further attention.
 
-> **Note:** The current MVP uses synthetic semiconductor-style data and is intended for demonstration and development purposes.
+The current version uses synthetic semiconductor-style data because real fab production data is usually confidential.
 
----
+## What It Does
 
-## Problem
+YieldGuard AI takes wafer-lot process data and produces:
 
-Semiconductor manufacturing involves tightly controlled process conditions. Deviations or combinations of abnormal process parameters may contribute to higher defect rates and lower wafer yield.
-
-Manufacturing teams therefore need ways to identify potentially risky wafer lots early and understand which process factors may deserve further investigation.
-
-However, semiconductor production data is often complex, high-dimensional, and difficult to interpret using prediction scores alone.
-
----
-
-## Solution
-
-YieldGuard AI analyses wafer-lot process data using a **Random Forest classifier** and generates:
-
-- Predicted wafer-lot risk
-- High-risk probability score
+- A predicted risk class
+- A high-risk probability score
 - LOW / MEDIUM / HIGH warning levels
-- SHAP-based model explanations
-- Possible process risk indicators
-- Recommended engineering actions
+- SHAP explanations for individual predictions
+- Possible process risk factors
+- Suggested follow-up actions
+- An interactive Streamlit dashboard
 
-The results are presented through an interactive **Streamlit dashboard**.
+The goal is to help users identify higher-risk wafer lots and understand which inputs influenced the model prediction.
 
-The goal is not to replace engineers, but to provide an interpretable AI-based decision-support layer that helps users identify which wafer lots may require closer attention.
+The system is designed as a decision-support tool, not as a replacement for process or yield engineers.
 
----
+## Model and Data
 
-## Key Features
+The current model is a **Random Forest classifier** built with scikit-learn.
 
-### Machine Learning Prediction
+It uses five input features:
 
-The current model uses five input features:
+| Feature | Description |
+| --- | --- |
+| `chamber_temp` | Chamber temperature |
+| `chamber_pressure` | Chamber pressure |
+| `etch_time` | Etching process duration |
+| `film_thickness` | Film thickness measurement |
+| `defect_count` | Number of detected defects |
 
-- `chamber_temp`
-- `chamber_pressure`
-- `etch_time`
-- `film_thickness`
-- `defect_count`
+`lot_id` is used to identify wafer lots but is not used as a model feature.
 
-A Random Forest classifier predicts whether a wafer lot belongs to the high-risk class.
+`tool_id` is included in the synthetic dataset but is not currently used by the model.
 
-The model also generates a high-risk probability that is converted into a risk score.
+`final_yield` is also excluded from the model because `risk_label` is derived from it. Including `final_yield` would cause target leakage.
 
-### Risk Warning System
+The synthetic dataset contains 200 wafer lots and is generated using a fixed random seed so that the same data can be reproduced.
 
-Risk scores are converted into three dashboard warning levels:
-
-- **HIGH RISK:** >= 70%
-- **MEDIUM RISK:** >= 40% and < 70%
-- **LOW RISK:** < 40%
-
-These thresholds are MVP decision-support rules rather than universal semiconductor process standards.
-
-### Explainable AI with SHAP
-
-YieldGuard AI uses **SHAP** to explain individual Random Forest predictions.
-
-For a selected wafer lot, the dashboard shows:
-
-- Feature values
-- SHAP contributions
-- Contribution direction
-- Strongest AI prediction driver
-- SHAP contribution bar chart
-
-Positive SHAP values push the model prediction toward **HIGH RISK**, while negative values push it toward **LOW RISK**.
-
-### Process Risk Analysis
-
-The system also applies simple engineering-inspired rules to identify possible process deviations, including:
-
-- High defect count
-- High chamber temperature
-- High chamber pressure
-- Long etch time
-- High film thickness
-- Low film thickness
-
-Corresponding recommended actions are generated to support further investigation.
-
-These outputs represent **possible risk indicators**, not confirmed physical root causes.
-
-### Interactive Dashboard
-
-The Streamlit dashboard supports:
-
-- CSV upload
-- Live model prediction
-- Built-in demo data
-- Production risk overview
-- Risk filtering
-- Warning-level distribution
-- Individual wafer-lot inspection
-- SHAP explanation
-- Model evaluation
-- Confusion Matrix
-- Recommended actions
-- Downloadable filtered results
-
----
-
-## How It Works
+The data is split into:
 
 ```text
-Wafer-Lot CSV
-      ↓
-Input Validation
-      ↓
-Model Features
-      ↓
-Random Forest
-      ↓
-Risk Prediction + Probability
-      ↓
-LOW / MEDIUM / HIGH Warning
-      ↓
- ┌───────────────┬──────────────────┐
- ↓               ↓
-SHAP          Rule-Based
-Explanation   Process Analysis
- ↓               ↓
-AI Drivers    Risk Indicators
-              + Actions
- └───────────────┴──────────────────┘
-                 ↓
-        Streamlit Dashboard
+80% training data
+20% held-out test data
 ```
 
----
-
-## Model Evaluation
-
-The synthetic dataset is split into:
-
-```text
-80% Training Data
-20% Held-Out Test Data
-```
-
-The model is trained only on the training portion.
-
-The held-out test set is saved as:
+The held-out rows are saved as:
 
 ```text
 data/unseen_test_data.csv
 ```
 
-When labelled test data is uploaded, the dashboard can calculate:
+This file can be uploaded to the dashboard to evaluate the model on data that was not used during training.
+
+## Risk Levels
+
+The Random Forest predicts a binary class:
+
+```text
+0 = Low Risk
+1 = High Risk
+```
+
+The model also produces a probability for the high-risk class.
+
+The dashboard converts this probability into three warning levels:
+
+| Risk Score | Warning Level |
+| --- | --- |
+| >= 70% | HIGH RISK |
+| 40% to < 70% | MEDIUM RISK |
+| < 40% | LOW RISK |
+
+The binary model prediction and the dashboard warning level use different decision thresholds, so a lot can have a predicted class of `1` while still being shown as `MEDIUM RISK`.
+
+These warning thresholds are part of the MVP and are not universal semiconductor process limits.
+
+## Explainability
+
+YieldGuard AI uses **SHAP** to explain individual Random Forest predictions.
+
+For a selected wafer lot, the dashboard shows:
+
+- The value of each model feature
+- Its SHAP contribution
+- Whether it pushes the prediction toward HIGH RISK or LOW RISK
+- The feature with the strongest influence on the prediction
+- A SHAP contribution chart
+
+SHAP explains how the model arrived at a prediction. It does not prove that a feature physically caused a defect or yield loss.
+
+The project also includes simple rule-based process checks. These look for conditions such as:
+
+- High defect count
+- High chamber temperature
+- High chamber pressure
+- Long etch time
+- High or low film thickness
+
+The rules generate possible risk indicators and suggested follow-up actions.
+
+They are illustrative MVP rules and should not be treated as confirmed semiconductor root causes or real fab process specifications.
+
+## Dashboard
+
+The Streamlit dashboard includes:
+
+- Built-in synthetic demo data
+- CSV upload
+- Live model prediction
+- Input validation
+- Production risk overview
+- LOW / MEDIUM / HIGH distribution
+- Risk filters
+- Downloadable prediction results
+- Individual wafer-lot inspection
+- SHAP explanation
+- Possible risk factors
+- Recommended actions
+
+If an uploaded CSV also contains a valid `risk_label` column, the dashboard can display:
 
 - Accuracy
 - Precision
 - Recall
 - Confusion Matrix
 
-This allows model performance to be evaluated on wafer lots that were not used during model fitting.
+For meaningful evaluation, the labelled data should be held out from model training.
 
-Model results should be interpreted as performance on the current **synthetic MVP dataset**, not as validated semiconductor-fab performance.
+## How It Works
 
----
+```text
+Wafer-Lot Data
+      |
+      v
+Input Validation
+      |
+      v
+Random Forest Model
+      |
+      +----------------------+
+      |                      |
+      v                      v
+Predicted Class       High-Risk Probability
+                             |
+                             v
+                     Warning Level
+                             |
+              +--------------+--------------+
+              |                             |
+              v                             v
+       SHAP Explanation            Rule-Based Checks
+              |                             |
+              v                             v
+       Model Drivers              Possible Risk Factors
+                                  Recommended Actions
+              |                             |
+              +--------------+--------------+
+                             |
+                             v
+                    Streamlit Dashboard
+```
 
 ## Project Structure
 
 ```text
 yieldguard-ai/
-│
+|
 ├── app.py
 ├── README.md
 ├── requirements.txt
-│
+|
 ├── data/
 │   ├── wafer_data.csv
 │   └── unseen_test_data.csv
-│
+|
 ├── models/
 │   └── yieldguard_model.pkl
-│
+|
 ├── outputs/
 │   ├── batch_predictions.csv
 │   └── explained_predictions.csv
-│
+|
 └── scripts/
     ├── generate_data.py
     ├── check_data.py
@@ -197,9 +197,7 @@ yieldguard-ai/
     └── explain_risk.py
 ```
 
----
-
-## Installation
+## Running the Project
 
 Install the required Python packages:
 
@@ -207,7 +205,100 @@ Install the required Python packages:
 python -m pip install -r requirements.txt
 ```
 
-Current dependencies:
+Generate the synthetic dataset:
+
+```bash
+python scripts/generate_data.py
+```
+
+Check the generated data:
+
+```bash
+python scripts/check_data.py
+```
+
+Train the Random Forest model:
+
+```bash
+python scripts/train_model.py
+```
+
+Generate batch prediction results:
+
+```bash
+python scripts/predict_batch.py
+```
+
+Generate rule-based process analysis:
+
+```bash
+python scripts/explain_risk.py
+```
+
+Start the Streamlit dashboard:
+
+```bash
+python -m streamlit run app.py
+```
+
+The dashboard will normally open at:
+
+```text
+http://localhost:8501
+```
+
+The dashboard can also perform predictions directly from an uploaded CSV, so the batch prediction scripts are mainly useful for generating saved output files and checking the pipeline separately.
+
+## CSV Input
+
+A CSV uploaded to the dashboard must contain the five model features.
+
+Example:
+
+```csv
+lot_id,chamber_temp,chamber_pressure,etch_time,film_thickness,defect_count
+LOT_001,85.10,2.05,54.92,99.54,15
+LOT_002,78.36,1.87,54.54,106.51,5
+LOT_003,93.88,2.16,60.45,89.55,31
+```
+
+Required columns:
+
+```text
+chamber_temp
+chamber_pressure
+etch_time
+film_thickness
+defect_count
+```
+
+`lot_id` is optional for prediction, but it is recommended because it enables individual wafer-lot inspection in the dashboard.
+
+For model evaluation, a labelled CSV may also contain:
+
+```text
+risk_label
+```
+
+where the values must be `0` or `1`.
+
+## Current Limitations
+
+This project is an MVP and has several limitations:
+
+- The dataset is synthetic rather than real fab production data.
+- Only five model features are currently used.
+- `tool_id` is not included in model training.
+- `defect_count` has a strong relationship with yield because of the synthetic data-generation logic.
+- The process thresholds are illustrative rather than validated fab specifications.
+- SHAP explains model behaviour but does not establish physical causality.
+- The model has not been validated in a real semiconductor manufacturing environment.
+
+A real implementation would require actual manufacturing data, process-specific engineering validation, appropriate feature timing, model monitoring, and integration with fab systems.
+
+## Requirements
+
+The project uses:
 
 ```text
 pandas
@@ -218,95 +309,10 @@ streamlit
 shap
 ```
 
----
-
-## Running YieldGuard AI
-
-### 1. Generate the synthetic dataset
-
-```bash
-python scripts/generate_data.py
-```
-
-### 2. Train the model
-
-```bash
-python scripts/train_model.py
-```
-
-### 3. Generate batch predictions
-
-```bash
-python scripts/predict_batch.py
-```
-
-### 4. Generate rule-based explanations
-
-```bash
-python scripts/explain_risk.py
-```
-
-### 5. Start the dashboard
-
-```bash
-python -m streamlit run app.py
-```
-
-The dashboard will normally run at:
-
-```text
-http://localhost:8501
-```
-
-Users can then upload a CSV containing the required model features for live prediction.
-
----
-
-## Example CSV Input
-
-```csv
-lot_id,chamber_temp,chamber_pressure,etch_time,film_thickness,defect_count
-LOT_001,85.10,2.05,54.92,99.54,15
-LOT_002,78.36,1.87,54.54,106.51,5
-LOT_003,93.88,2.16,60.45,89.55,31
-```
-
-Required model columns:
-
-```text
-chamber_temp
-chamber_pressure
-etch_time
-film_thickness
-defect_count
-```
-
-`lot_id` is recommended for individual wafer-lot inspection.
-
----
-
-## Current Limitations
-
-YieldGuard AI is currently an MVP.
-
-Key limitations include:
-
-- The dataset is synthetic rather than real fab production data.
-- Only five model features are currently used.
-- `tool_id` is not yet included in model training.
-- `defect_count` has strong predictive influence because of the synthetic data-generation logic.
-- Process thresholds are illustrative assumptions rather than validated fab specifications.
-- SHAP explains model behaviour but does not prove physical causality.
-- The system has not been validated in a real semiconductor production environment.
-
-Real deployment would require real manufacturing data, engineering validation, process-specific thresholds, model monitoring, and integration with existing manufacturing systems.
-
----
-
 ## Disclaimer
 
-YieldGuard AI is an educational and competition MVP demonstrating the potential use of explainable machine learning in semiconductor manufacturing.
+YieldGuard AI is an educational and competition MVP.
 
-Model predictions, SHAP explanations, process-risk indicators, thresholds, and recommended actions are provided for demonstration purposes.
+Its predictions, SHAP explanations, process indicators, thresholds, and recommended actions are intended for demonstration purposes using synthetic data.
 
-The system is intended as a **decision-support tool** and should not replace process engineers, yield engineers, equipment engineers, or other semiconductor domain experts.
+The system should be treated as a decision-support prototype and not as a validated semiconductor production tool.
