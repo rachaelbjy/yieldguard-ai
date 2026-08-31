@@ -1,9 +1,12 @@
+import html
 import os
+from io import BytesIO
 
 import joblib
 import pandas as pd
 import shap
 import streamlit as st
+import xlsxwriter
 from sklearn.metrics import (
     accuracy_score,
     confusion_matrix,
@@ -215,6 +218,433 @@ def run_predictions(input_df):
         [results, explanations],
         axis=1,
     )
+
+
+
+def split_list_items(value):
+    if pd.isna(value):
+        return []
+
+    return [
+        item.strip()
+        for item in str(value).split(";")
+        if item.strip()
+    ]
+
+
+def format_number_for_table(value):
+    if pd.isna(value):
+        return ""
+
+    number = float(value)
+
+    if number.is_integer():
+        return str(int(number))
+
+    return f"{number:.4f}".rstrip("0").rstrip(".")
+
+
+def format_table_value(value, column, bullet_columns, number_formats):
+    if column in bullet_columns:
+        items = split_list_items(value)
+
+        if not items:
+            return ""
+
+        list_items = "".join(
+            f"<li>{html.escape(item)}</li>"
+            for item in items
+        )
+
+        return (
+            '<ul class="yieldguard-cell-list">'
+            f"{list_items}"
+            "</ul>"
+        )
+
+    if pd.isna(value):
+        return ""
+
+    if column in number_formats:
+        return format(
+            float(value),
+            number_formats[column],
+        )
+
+    return html.escape(
+        str(value)
+    )
+
+
+def build_table_html(
+    table_df,
+    table_id,
+    column_widths,
+    bullet_columns=None,
+    number_formats=None,
+    max_height=None,
+    min_width=700,
+    sticky_header=False,
+    sticky_first_column=False,
+):
+    bullet_columns = set(
+        bullet_columns or []
+    )
+    number_formats = (
+        number_formats or {}
+    )
+
+    header_html = []
+
+    for column in table_df.columns:
+        width = column_widths.get(
+            column,
+            180,
+        )
+
+        header_html.append(
+            (
+                f'<th style="min-width:{width}px;'
+                f'width:{width}px;">'
+                f"{html.escape(column)}"
+                "</th>"
+            )
+        )
+
+    rows_html = []
+
+    for _, row in table_df.iterrows():
+        cells = []
+
+        for column in table_df.columns:
+            width = column_widths.get(
+                column,
+                180,
+            )
+
+            cell_content = format_table_value(
+                row[column],
+                column,
+                bullet_columns,
+                number_formats,
+            )
+
+            cells.append(
+                (
+                    f'<td style="min-width:{width}px;'
+                    f'width:{width}px;">'
+                    f"{cell_content}"
+                    "</td>"
+                )
+            )
+
+        rows_html.append(
+            "<tr>"
+            + "".join(cells)
+            + "</tr>"
+        )
+
+    if max_height is None:
+        container_scroll = (
+            "overflow-x: auto; "
+            "overflow-y: visible;"
+        )
+    else:
+        container_scroll = (
+            f"max-height: {max_height}px; "
+            "overflow: auto;"
+        )
+
+    if sticky_header:
+        header_position = (
+            "position: sticky; "
+            "top: 0; "
+            "z-index: 3;"
+        )
+    else:
+        header_position = ""
+
+    if sticky_first_column:
+        first_column_css = f"""
+#{table_id} th:first-child {{
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: #262730;
+    box-shadow: 1px 0 0 rgba(128, 128, 128, 0.25);
+}}
+
+#{table_id} td:first-child {{
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #0e1117;
+    box-shadow: 1px 0 0 rgba(128, 128, 128, 0.25);
+}}
+"""
+    else:
+        first_column_css = ""
+
+    return f"""
+<style>
+#{table_id}.yieldguard-table-container {{
+    width: 100%;
+    {container_scroll}
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 10px;
+}}
+
+#{table_id} .yieldguard-table {{
+    width: 100%;
+    min-width: {min_width}px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 0.95rem;
+}}
+
+#{table_id} .yieldguard-table th,
+#{table_id} .yieldguard-table td {{
+    text-align: left !important;
+    vertical-align: top !important;
+    padding: 11px 12px;
+    border-right: 1px solid rgba(128, 128, 128, 0.25);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.45;
+}}
+
+#{table_id} .yieldguard-table th {{
+    {header_position}
+    background: #262730;
+    color: white;
+    font-weight: 600;
+}}
+
+#{table_id} .yieldguard-table td {{
+    background: #0e1117;
+}}
+
+{first_column_css}
+
+#{table_id} .yieldguard-table tr:last-child td {{
+    border-bottom: none;
+}}
+
+#{table_id} .yieldguard-table th:last-child,
+#{table_id} .yieldguard-table td:last-child {{
+    border-right: none;
+}}
+
+#{table_id} .yieldguard-cell-list {{
+    margin: 0;
+    padding-left: 20px;
+}}
+
+#{table_id} .yieldguard-cell-list li {{
+    margin: 0 0 5px 0;
+}}
+
+#{table_id} .yieldguard-cell-list li:last-child {{
+    margin-bottom: 0;
+}}
+</style>
+
+<div id="{table_id}" class="yieldguard-table-container">
+    <table class="yieldguard-table">
+        <thead>
+            <tr>
+                {''.join(header_html)}
+            </tr>
+        </thead>
+        <tbody>
+            {''.join(rows_html)}
+        </tbody>
+    </table>
+</div>
+"""
+
+
+def add_table_button_gap():
+    st.markdown(
+        "<div style='height: 0.8rem;'></div>",
+        unsafe_allow_html=True,
+    )
+
+
+def build_results_excel(table_df):
+    excel_df = table_df.copy()
+
+    for column in [
+        "Possible Risk Factors",
+        "Recommended Action",
+    ]:
+        if column in excel_df.columns:
+            excel_df[column] = (
+                excel_df[column].apply(
+                    lambda value: "\n".join(
+                        f"• {item}"
+                        for item in split_list_items(
+                            value
+                        )
+                    )
+                )
+            )
+
+    output = BytesIO()
+
+    workbook = xlsxwriter.Workbook(
+        output,
+        {
+            "in_memory": True,
+        },
+    )
+
+    worksheet = workbook.add_worksheet(
+        "Risk Results"
+    )
+
+    header_format = workbook.add_format({
+        "bold": True,
+        "font_color": "#FFFFFF",
+        "bg_color": "#262730",
+        "align": "left",
+        "valign": "vcenter",
+        "border": 1,
+        "text_wrap": True,
+    })
+
+    text_format = workbook.add_format({
+        "align": "left",
+        "valign": "top",
+        "border": 1,
+        "text_wrap": True,
+    })
+
+    score_format = workbook.add_format({
+        "align": "left",
+        "valign": "top",
+        "border": 1,
+        "num_format": "0.00",
+    })
+
+    column_widths = {
+        "Lot ID": 14,
+        "Risk Score (%)": 16,
+        "Warning Level": 18,
+        "Possible Risk Factors": 44,
+        "Recommended Action": 50,
+    }
+
+    for column_index, column in enumerate(
+        excel_df.columns
+    ):
+        worksheet.write(
+            0,
+            column_index,
+            column,
+            header_format,
+        )
+
+        worksheet.set_column(
+            column_index,
+            column_index,
+            column_widths.get(
+                column,
+                18,
+            ),
+        )
+
+    for row_index, row in enumerate(
+        excel_df.itertuples(
+            index=False,
+            name=None,
+        ),
+        start=1,
+    ):
+        maximum_lines = 1
+
+        for column_index, value in enumerate(
+            row
+        ):
+            column = excel_df.columns[
+                column_index
+            ]
+
+            if pd.isna(value):
+                worksheet.write_blank(
+                    row_index,
+                    column_index,
+                    None,
+                    (
+                        score_format
+                        if column == "Risk Score (%)"
+                        else text_format
+                    ),
+                )
+                continue
+
+            if column == "Risk Score (%)":
+                worksheet.write_number(
+                    row_index,
+                    column_index,
+                    float(value),
+                    score_format,
+                )
+
+            else:
+                text_value = str(value)
+
+                worksheet.write(
+                    row_index,
+                    column_index,
+                    text_value,
+                    text_format,
+                )
+
+                maximum_lines = max(
+                    maximum_lines,
+                    text_value.count("\n") + 1,
+                )
+
+        worksheet.set_row(
+            row_index,
+            min(
+                max(
+                    24,
+                    maximum_lines * 20,
+                ),
+                120,
+            ),
+        )
+
+    worksheet.set_row(
+        0,
+        30,
+    )
+
+    worksheet.freeze_panes(
+        1,
+        1,
+    )
+
+    worksheet.hide_gridlines(
+        2
+    )
+
+    if len(excel_df) > 0:
+        worksheet.autofilter(
+            0,
+            0,
+            len(excel_df),
+            len(excel_df.columns) - 1,
+        )
+
+    workbook.close()
+    output.seek(0)
+
+    return output.getvalue()
 
 
 # Data input
@@ -451,24 +881,39 @@ if show_model_performance:
         "#### Confusion Matrix"
     )
 
-    confusion_df = pd.DataFrame(
-        [
-            [tn, fp],
-            [fn, tp],
-        ],
-        index=[
+    confusion_display_df = pd.DataFrame({
+        "Actual Class": [
             "Actual Low Risk",
             "Actual High Risk",
         ],
-        columns=[
-            "Predicted Low Risk",
-            "Predicted High Risk",
+        "Predicted Low Risk": [
+            str(int(tn)),
+            str(int(fn)),
         ],
-    )
+        "Predicted High Risk": [
+            str(int(fp)),
+            str(int(tp)),
+        ],
+    })
 
     st.dataframe(
-        confusion_df,
+        confusion_display_df,
         width="stretch",
+        hide_index=True,
+        column_config={
+            "Actual Class": st.column_config.TextColumn(
+                "Actual Class",
+                width="medium",
+            ),
+            "Predicted Low Risk": st.column_config.TextColumn(
+                "Predicted Low Risk",
+                width="medium",
+            ),
+            "Predicted High Risk": st.column_config.TextColumn(
+                "Predicted High Risk",
+                width="medium",
+            ),
+        },
     )
 
     st.caption(
@@ -608,28 +1053,56 @@ st.write(
     f"{len(df)} wafer lots"
 )
 
-st.dataframe(
-    display_df,
-    width="stretch",
-    hide_index=True,
-)
-
-download_data = (
-    filtered_df
-    .to_csv(
-        index=False
+if display_df.empty:
+    st.info(
+        "No wafer lots match the current filters."
     )
-    .encode(
-        "utf-8"
-    )
-)
 
-st.download_button(
-    label="Download Filtered Results",
-    data=download_data,
-    file_name="yieldguard_filtered_results.csv",
-    mime="text/csv",
-)
+else:
+    results_html = build_table_html(
+        display_df,
+        table_id="risk-results-table",
+        column_widths={
+            "Lot ID": 125,
+            "Risk Score (%)": 145,
+            "Warning Level": 165,
+            "Possible Risk Factors": 430,
+            "Recommended Action": 470,
+        },
+        bullet_columns={
+            "Possible Risk Factors",
+            "Recommended Action",
+        },
+        number_formats={
+            "Risk Score (%)": ".2f",
+        },
+        max_height=520,
+        min_width=1350,
+        sticky_header=True,
+        sticky_first_column=True,
+    )
+
+    st.markdown(
+        results_html,
+        unsafe_allow_html=True,
+    )
+
+    add_table_button_gap()
+
+    results_download = build_results_excel(
+        display_df
+    )
+
+    st.download_button(
+        label="Download Filtered Results (.xlsx)",
+        data=results_download,
+        file_name="yieldguard_filtered_results.xlsx",
+        mime=(
+            "application/vnd.openxmlformats-officedocument."
+            "spreadsheetml.sheet"
+        ),
+        key="download_risk_results",
+    )
 
 st.divider()
 
@@ -732,10 +1205,26 @@ if "lot_id" in df.columns:
         ],
     })
 
+    process_display_df = process_details.copy()
+    process_display_df["Value"] = (
+        process_display_df["Value"]
+        .apply(format_number_for_table)
+    )
+
     st.dataframe(
-        process_details,
+        process_display_df,
         width="stretch",
         hide_index=True,
+        column_config={
+            "Feature": st.column_config.TextColumn(
+                "Feature",
+                width="medium",
+            ),
+            "Value": st.column_config.TextColumn(
+                "Value",
+                width="medium",
+            ),
+        },
     )
 
     selected_input = pd.DataFrame(
@@ -836,12 +1325,14 @@ if "lot_id" in df.columns:
         ]
     ].copy()
 
-    shap_display_df[
-        "SHAP Contribution"
-    ] = (
-        shap_display_df[
-            "SHAP Contribution"
-        ].round(4)
+    shap_display_df["Value"] = (
+        shap_display_df["Value"]
+        .apply(format_number_for_table)
+    )
+
+    shap_display_df["SHAP Contribution"] = (
+        shap_display_df["SHAP Contribution"]
+        .apply(lambda value: f"{float(value):.4f}")
     )
 
     st.markdown(
@@ -852,10 +1343,28 @@ if "lot_id" in df.columns:
         shap_display_df,
         width="stretch",
         hide_index=True,
+        column_config={
+            "Feature": st.column_config.TextColumn(
+                "Feature",
+                width="medium",
+            ),
+            "Value": st.column_config.TextColumn(
+                "Value",
+                width="small",
+            ),
+            "SHAP Contribution": st.column_config.TextColumn(
+                "SHAP Contribution",
+                width="medium",
+            ),
+            "Direction": st.column_config.TextColumn(
+                "Direction",
+                width="large",
+            ),
+        },
     )
 
     shap_chart_df = (
-        shap_display_df[
+        shap_df[
             [
                 "Feature",
                 "SHAP Contribution",

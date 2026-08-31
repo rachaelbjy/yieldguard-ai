@@ -119,7 +119,7 @@ The Streamlit dashboard includes:
 - Production risk overview
 - LOW / MEDIUM / HIGH distribution
 - Risk filters
-- Downloadable prediction results
+- Downloadable formatted Excel results
 - Individual wafer-lot inspection
 - SHAP explanation
 - Possible risk factors
@@ -307,6 +307,7 @@ scikit-learn
 joblib
 streamlit
 shap
+xlsxwriter
 ```
 
 ## Disclaimer
